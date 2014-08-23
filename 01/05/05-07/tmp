@@ -1,0 +1,9 @@
+void register_xor(char * str) {
+    while (*(str) != '\n') {
+        if ((*str) > 'Z').
+            (*str) = (*str) - 'a' + 'A';
+        else
+            (*str) = (*str) - 'A' + 'a';
+        str++;
+    }
+}

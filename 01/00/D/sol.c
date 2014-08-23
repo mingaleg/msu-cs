@@ -1,0 +1,13 @@
+#include<stdio.h>
+
+int main(void){
+    long long M, L;
+    int K, Y;
+    scanf("%lld %d %lld %d", &M, &K, &L, &Y);
+    for (int i = 0; i < Y; ++i) {
+        M += (M * K / 100);
+        M += L;
+    }
+    printf("%lld\n", M);
+    return 0;
+}

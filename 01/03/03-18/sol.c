@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+#define MOD 2010
+
+int concat(int a, int b) {
+    int p = 1;
+    while (p <= b) p *= 10;
+    return a*p + b;
+}
+
+int used[MOD];
+
+int main(void) {
+    long long n;
+    long long a;
+    scanf("%lld%lld", &n, &a);
+    if (a >= MOD) {
+        printf("NO\n");
+        return 0;
+    }
+    int x = n % MOD;
+    while (!used[x]) {
+        if (x == a) {
+            printf("YES\n");
+            return 0;
+        }
+        used[x] = 1;
+        x = concat(x, x) % MOD;
+    }
+    printf("NO\n");
+    return 0;
+}

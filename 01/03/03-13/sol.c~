@@ -1,0 +1,32 @@
+#include<stdio.h>
+
+#define MAXN 14
+
+int used[MAXN];
+
+void print(int n) {
+    for (int i = 0; i < n; ++i) {
+        if (used[i]) printf("%d ", i);
+    }
+    printf("\n");
+}
+
+void generate(int pref, int left, int n) {
+    if (pref == n) {
+        if (left) return;
+        print(n);
+        return;
+    }
+    if (!left) print(n);
+    used[pref] = 1;
+    generate(pref+1, left-1, n);
+    used[pref] = 0;
+    generate(pref+1, left, n);
+}
+
+int main(void) {
+    int n, k;
+    scanf("%d%d", &n, &k);
+    generate(0, k, n);
+    return 0;
+}

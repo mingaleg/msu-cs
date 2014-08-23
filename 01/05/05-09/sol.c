@@ -1,0 +1,79 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int used[500][500];
+int n, m;
+
+struct qnode {
+    int x, y;
+    struct qnode *next;
+};
+
+struct qnode *qhead, *qtail;
+
+void enq(int x, int y) {
+    struct qnode *foo = (struct qnode *) malloc(sizeof(struct qnode));
+    foo->x = x; foo->y = y;
+    foo->next = 0;
+    if (qtail) {
+        qtail->next = foo;
+        qtail = foo;
+    } else {
+        qhead = foo;
+        qtail = foo;
+    }
+}
+
+void deq(int *x, int *y) {
+    *x = qhead->x; *y = qhead->y;
+    if (qhead->next) {
+        struct qnode *foo = qhead->next;
+        free(qhead); qhead = foo;
+    } else {
+        free(qhead);
+        qhead = 0; qtail = 0;
+    }
+}
+
+int bfs(void) {
+    int ans = 1;
+    while (qhead) {
+        int tx, ty;
+        deq(&tx, &ty);
+        if (tx > 0 && !used[tx-1][ty]) {
+            used[tx-1][ty] = used[tx][ty] + 1;
+            enq(tx-1, ty);
+            if (ans < used[tx][ty] + 1) ans = used[tx][ty] + 1;
+        }
+        if (tx < n-1 && !used[tx+1][ty]) {
+            used[tx+1][ty] = used[tx][ty] + 1;
+            enq(tx+1, ty);
+            if (ans < used[tx][ty] + 1) ans = used[tx][ty] + 1;
+        }
+        if (ty > 0 && !used[tx][ty-1]) {
+            used[tx][ty-1] = used[tx][ty] + 1;
+            enq(tx, ty-1);
+            if (ans < used[tx][ty] + 1) ans = used[tx][ty] + 1;
+        }
+        if (ty < m-1 && !used[tx][ty+1]) {
+            used[tx][ty+1] = used[tx][ty] + 1;
+            enq(tx, ty+1);
+            if (ans < used[tx][ty] + 1) ans = used[tx][ty] + 1;
+        }
+    }
+    return ans-1;
+}
+
+int main(void) {
+    int k;
+    scanf("%d%d%d", &n, &m, &k);
+    qhead = qtail = 0;
+    for (int i = 0; i < k; ++i) {
+        int tx, ty;
+        scanf("%d%d", &ty, &tx);
+        used[--tx][--ty] = 1;
+        enq(tx, ty);
+    }
+    printf("%d\n", bfs());
+    return 0;
+}

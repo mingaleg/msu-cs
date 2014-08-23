@@ -1,0 +1,24 @@
+#include <stdio.h>
+
+int main(void) {
+	char x[100007];
+	int t = 1;
+	x[0] = getchar();
+	int i;
+	for(i = 1; ; ++i) {
+		x[i] = getchar();
+		if((x[i] != EOF) && (x[i] != '\n')) {
+			if(x[i] != x[i - t]) {
+				t = i + 1;
+			}
+		}
+		else {
+			break;
+		}
+	}
+	for(int temp = t; temp < i; temp += t) {
+		printf("%d ", temp);
+	}
+	printf("%d ", i);
+    printf("\n");
+}

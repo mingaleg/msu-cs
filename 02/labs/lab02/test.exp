@@ -1,0 +1,6 @@
+#!/usr/bin/env expect 
+
+spawn ./lab02
+
+send "X^2+X+1\n"
+send "X^2-X+1\n"

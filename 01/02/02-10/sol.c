@@ -1,0 +1,28 @@
+#include<stdio.h>
+#include<math.h>
+
+#define MAXN 1000
+
+long double s[MAXN];
+long double a[MAXN];
+
+int main(void) {
+    int n;
+    scanf("%d", &n);
+    for (int i = 0; i < n; ++i) scanf("%Lf", &s[i]);
+    for (int i = 0; i < n; ++i) scanf("%Lf", &a[i]);
+    long double cv = 0;
+    long double ans = 0;
+    for (int i = 0; i < n; ++i) {
+        if (fabs(a[i]) > 0.000001) {
+            long double cc = -cv + sqrtl(cv*cv + 2*a[i]*s[i]);
+            long double ct = cc / a[i];
+            ans += ct;
+            cv += cc;
+        } else {
+            ans += s[i] / cv;
+        }
+    }
+    printf("%.4Lf\n", ans);
+    return 0;
+}

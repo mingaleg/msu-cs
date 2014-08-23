@@ -1,0 +1,61 @@
+digraph finite_state_machine {
+    rankdir=LR;
+    node [shape = point, color=white, fontcolor=white]; start;
+    node [shape = circle, color=black, fontcolor=white style=filled fillcolor=black]; 
+        Z1, Z2, Z3, Z4, Z5, Z6, Z7;
+    node [fillcolor=white shape=circle color=black fontcolor=black]; A; 
+    start -> A;
+
+    A -> B [label = "0"];
+    A -> C [label = "\\d"];
+    A -> D [label = "+"];
+    A -> D [label = "&#x2212;"];
+    A -> E [label = "X"];
+
+    B -> Z1 [label = "&#x21a9;"];
+    B -> C [label = "\\d"];
+    B -> E [label = "X"];
+
+    C -> Z2 [label = "&#x21a9;"];
+    C -> E [label = "X"];
+    C -> H [label = "+"];
+    C -> H [label = "&#x2212;"];
+    C -> C [label = "\\d"];
+
+    D -> C [label = "\\d"];
+    D -> E [label = "X"];
+
+    E -> F [label = "^"];
+    E -> Z3 [label = "&#x21a9;"];
+    E -> H [label = "+"];
+    E -> H [label = "&#x2212;"];
+
+    F -> G [label = "\\d"];
+
+    G -> Z4 [label = "&#x21a9;"];
+    G -> G [label = "\\d"];
+    G -> H [label = "+"];
+    G -> H [label = "&#x2212;"];
+
+    H -> I [label = "X"];
+    H -> J [label = "\\d"];
+
+    I -> Z5 [label = "&#x21a9;"];
+    I -> K [label = "^"];
+    I -> H [label = "+"];
+    I -> H [label = "&#x2212;"];
+
+    J -> Z6 [label = "&#x21a9;"];
+    J -> I [label = "X"];
+    J -> J [label = "\\d"];
+    J -> H [label = "+"];
+    J -> H [label = "&#x2212;"];
+
+    K -> L [label = "\\d"];
+
+    L -> L [label = "\\d"];
+    L -> Z7 [label = "&#x21a9;"];
+    L -> H [label = "+"];
+    L -> H [label = "&#x2212;"];
+}
+

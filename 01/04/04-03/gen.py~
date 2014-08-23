@@ -1,0 +1,8 @@
+from random import choice
+from sys import argv
+
+N = int(argv[1])
+A = argv[2]
+
+q = ''.join(choice(A) for i in range(N))
+print(q)

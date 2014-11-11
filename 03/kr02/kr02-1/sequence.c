@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+int
+execute(char *cmd)
+{
+    pid_t pid = fork();
+    if (pid == 0) {
+        execlp(cmd, cmd, NULL);
+        return -1;
+    } else {
+        int status;
+        waitpid(pid, &status, 0);
+        return WEXITSTATUS(status) == 0 && WIFEXITED(status);
+    }
+}
+
+int
+main(int argc, char **argv)
+{
+    for (int i = 1; i < argc; ++i) {
+        if (!execute(argv[i])) {
+            return 1;
+        }
+    }
+    return 0;
+}
